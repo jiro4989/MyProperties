@@ -3,7 +3,7 @@ MyProperties
 
 JavaのPropertiesクラスのラッパークラスにJavafx用の便利メソッドを追加したクラス。
 
-- Version      : 1.0.0
+- Version      : 1.1.0
 - Java Version : 1.8.0_121
 - Author       : 次郎 (Jiro)
 - Since        : Mar 07, 2017

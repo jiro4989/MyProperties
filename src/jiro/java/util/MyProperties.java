@@ -2,7 +2,6 @@ package jiro.java.util;
 
 import java.io.*;
 import java.util.*;
-import java.util.Map.Entry;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -32,7 +31,7 @@ import javafx.stage.Window;
  * </li>
  * </ul>
  * 
- * @version 1.0.0
+ * @version 1.1.0
  * @author Jiro
  *
  */
@@ -159,17 +158,6 @@ public final class MyProperties {
   }//}}}
 
   /**
-   * Propertiesを返却する。
-   *
-   * @return Propertiesインスタンス
-   */
-  public Properties getProperties() {//{{{
-
-    return properties;
-
-  }//}}}
-
-  /**
    * キーと値をセットする。<br>
    * 実質的に{@link java.util.Properties#setProperty(java.lang.String, 
    * java.lang.String)}のラッパーメソッドである。
@@ -187,9 +175,9 @@ public final class MyProperties {
    *
    * @param node 取得したいウィンドウに配置されているNode
    */
-  public void setProperties(Node node) {//{{{
+  public void setProperty(Node node) {//{{{
     Stage stage = (Stage) node.getScene().getWindow();
-    setProperties(stage);
+    setProperty(stage);
   }//}}}
 
   /**
@@ -197,7 +185,7 @@ public final class MyProperties {
    *
    * @param stage Stage
    */
-  public void setProperties(Stage stage) {//{{{
+  public void setProperty(Stage stage) {//{{{
 
     boolean isMaximized = stage.isMaximized();
     if (isMaximized)
