@@ -46,7 +46,9 @@ public final class MyProperties {
    * @param path 生成するプロパティファイルのパス
    */
   public MyProperties(String path) {//{{{
+
     this(new File(path));
+
   }//}}}
 
   /**
@@ -55,8 +57,10 @@ public final class MyProperties {
    * @param aFile 生成するプロパティファイル
    */
   public MyProperties(File aFile) {//{{{
+
     properties = new Properties();
     file = aFile;
+
   }//}}}
 
   /**
@@ -116,8 +120,10 @@ public final class MyProperties {
   public boolean store(String comment) {//{{{
 
     try (FileOutputStream out = new FileOutputStream(file)) {
+
       properties.storeToXML(out, comment);
       return true;
+
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -132,7 +138,9 @@ public final class MyProperties {
    * @return 成功の可否
    */
   public boolean store() {//{{{
+
     return store(null);
+
   }//}}}
 
   /**
@@ -141,7 +149,9 @@ public final class MyProperties {
    * @return 存在するかしないか
    */
   public boolean exists() {//{{{
+
     return file.exists();
+
   }//}}}
 
   /**
@@ -166,7 +176,9 @@ public final class MyProperties {
    * @param value 値
    */
   public void setProperty(String key, String value) {//{{{
+
     properties.setProperty(key, value);
+
   }//}}}
 
   /**
@@ -176,8 +188,10 @@ public final class MyProperties {
    * @param node 取得したいウィンドウに配置されているNode
    */
   public void setProperty(Node node) {//{{{
+
     Stage stage = (Stage) node.getScene().getWindow();
     setProperty(stage);
+
   }//}}}
 
   /**
