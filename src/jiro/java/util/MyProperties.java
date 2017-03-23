@@ -8,7 +8,6 @@ import javafx.stage.Window;
 
 /**
  * <p>プロパティファイルの操作を簡単にするためのラッパークラス。</p>
- *
  * 単純にPropertiesクラスのラッパークラスであるが、以下の点で異なる。
  *
  * <ul>
@@ -31,7 +30,7 @@ import javafx.stage.Window;
  * </li>
  * </ul>
  * 
- * @version 1.1.0
+ * @version 1.1.1
  * @author Jiro
  *
  */
@@ -45,11 +44,7 @@ public final class MyProperties {
    *
    * @param path 生成するプロパティファイルのパス
    */
-  public MyProperties(String path) {//{{{
-
-    this(new File(path));
-
-  }//}}}
+  public MyProperties(String path) { this(new File(path)); }
 
   /**
    * プロパティファイルを生成する。
@@ -57,10 +52,8 @@ public final class MyProperties {
    * @param aFile 生成するプロパティファイル
    */
   public MyProperties(File aFile) {//{{{
-
     properties = new Properties();
     file = aFile;
-
   }//}}}
 
   /**
@@ -69,22 +62,16 @@ public final class MyProperties {
    * @return 成功の可否
    */
   public boolean load() {//{{{
-
     if (file.exists()) {
-
       try (InputStream in = new FileInputStream(file)) {
-
         properties.loadFromXML(in);
         return true;
-
       } catch (IOException e) {
         e.printStackTrace();
       }
-
     }
 
     return false;
-
   }//}}}
 
   /**
@@ -95,7 +82,6 @@ public final class MyProperties {
    * @param stage 座標、幅データを変更したいStageインスタンス
    */
   public void customStage(Stage stage) {//{{{
-
     String strX = properties.getProperty("x");
     String strY = properties.getProperty("y");
     String strW = properties.getProperty("width");
@@ -108,7 +94,6 @@ public final class MyProperties {
 
     String strM = properties.getProperty("isMaximized");
     if (strM != null) stage.setMaximized(Boolean.valueOf(strM));
-
   }//}}}
 
   /**
@@ -118,18 +103,14 @@ public final class MyProperties {
    * @return 成功の可否
    */
   public boolean store(String comment) {//{{{
-
     try (FileOutputStream out = new FileOutputStream(file)) {
-
       properties.storeToXML(out, comment);
       return true;
-
     } catch (IOException e) {
       e.printStackTrace();
     }
 
     return false;
-
   }//}}}
 
   /**
@@ -137,22 +118,14 @@ public final class MyProperties {
    *
    * @return 成功の可否
    */
-  public boolean store() {//{{{
-
-    return store(null);
-
-  }//}}}
+  public boolean store() { return store(null); }
 
   /**
    * ファイルの有無を返す。
    *
    * @return 存在するかしないか
    */
-  public boolean exists() {//{{{
-
-    return file.exists();
-
-  }//}}}
+  public boolean exists() { return file.exists(); }
 
   /**
    * キーから値を取得する。<br>
@@ -162,9 +135,7 @@ public final class MyProperties {
    * @return 値
    */
   public Optional<String> getProperty(String key) {//{{{
-
     return Optional.ofNullable(properties.getProperty(key));
-
   }//}}}
 
   /**
@@ -176,9 +147,7 @@ public final class MyProperties {
    * @param value 値
    */
   public void setProperty(String key, String value) {//{{{
-
     properties.setProperty(key, value);
-
   }//}}}
 
   /**
@@ -188,10 +157,8 @@ public final class MyProperties {
    * @param node 取得したいウィンドウに配置されているNode
    */
   public void setProperty(Node node) {//{{{
-
     Stage stage = (Stage) node.getScene().getWindow();
     setProperty(stage);
-
   }//}}}
 
   /**
@@ -200,7 +167,6 @@ public final class MyProperties {
    * @param stage Stage
    */
   public void setProperty(Stage stage) {//{{{
-
     boolean isMaximized = stage.isMaximized();
     if (isMaximized)
       stage.setMaximized(false);
@@ -210,7 +176,24 @@ public final class MyProperties {
     properties.setProperty("width"       , "" + stage.getWidth());
     properties.setProperty("height"      , "" + stage.getHeight());
     properties.setProperty("isMaximized" , "" + isMaximized);
+  }//}}}
 
+  /**
+   * <p>
+   * デフォルト言語を変更する。
+   * </p><p>
+   * 設定ファイル内にlangsキーがセットしてあった場合、それに対応した言語に変更す
+   * る。
+   * </p><p>
+   * 言語の判定は単純で、日本語の言語コードがセットされていれば日本語に変更し、
+   * 日本語でない言語コードの場合はすべて英語にセットされる。
+   * </p>
+   */
+  public void changeLanguages() {//{{{
+    String ja    = Locale.JAPAN.getLanguage();
+    String langs = getProperty("langs").orElse(ja);
+    if (!langs.equals(ja))
+      Locale.setDefault(Locale.ENGLISH);
   }//}}}
 
 }
