@@ -30,7 +30,7 @@ import javafx.stage.Window;
  * </li>
  * </ul>
  * 
- * @version 1.1.1
+ * @version 1.2.0
  * @author Jiro
  *
  */
@@ -136,6 +136,42 @@ public final class MyProperties {
    */
   public Optional<String> getProperty(String key) {//{{{
     return Optional.ofNullable(properties.getProperty(key));
+  }//}}}
+
+  /**
+   * 整数型でプロパティを取得する。
+   * @param key キー
+   * @param defVal デフォルト値
+   * @return 整数
+   */
+  public int getIntegerValue(String key, String defVal) {//{{{
+    String valStr = properties.getProperty(key);
+    if (valStr == null) valStr = defVal;
+    return Integer.parseInt(valStr);
+  }//}}}
+
+  /**
+   * 小数型でプロパティを取得する。
+   * @param key キー
+   * @param defVal デフォルト値
+   * @return 小数
+   */
+  public double getDoubleValue(String key, String defVal) {//{{{
+    String valStr = properties.getProperty(key);
+    if (valStr == null) valStr = defVal;
+    return Double.parseDouble(valStr);
+  }//}}}
+
+  /**
+   * 真偽値型でプロパティを取得する。
+   * @param key キー
+   * @param defVal デフォルト値
+   * @return 真偽値
+   */
+  public boolean getBooleanValue(String key, String defVal) {//{{{
+    String valStr = properties.getProperty(key);
+    if (valStr == null) valStr = defVal;
+    return Boolean.valueOf(valStr);
   }//}}}
 
   /**
